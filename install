@@ -1,0 +1,36 @@
+#!/bin/bash
+
+TOOL_NAME="setuid-finder"
+
+echo "[*] Installing $TOOL_NAME..."
+
+# Detect environment
+if [ "$PREFIX" == "/data/data/com.termux/files/usr" ]; then
+    echo "[√] Detected Termux"
+    TARGET_DIR="$PREFIX/bin"
+else
+    echo "[√] Detected standard Linux"
+
+    if [ "$EUID" -eq 0 ]; then
+        # If running as root
+        TARGET_DIR="/usr/local/bin"
+    else
+        # If normal user
+        TARGET_DIR="$HOME/.local/bin"
+        mkdir -p "$TARGET_DIR"
+    fi
+fi
+
+# Copy tool
+chmod +x "$TOOL_NAME"
+cp "$TOOL_NAME" "$TARGET_DIR/"
+
+# Check if target dir is in PATH
+if ! echo "$PATH" | grep -q "$TARGET_DIR"; then
+    echo "[!] $TARGET_DIR not in PATH. Adding to ~/.bashrc"
+    echo "export PATH=\$PATH:$TARGET_DIR" >> ~/.bashrc
+    echo "[!] Reload your shell or run: source ~/.bashrc"
+fi
+
+echo "[+] $TOOL_NAME installed to $TARGET_DIR/"
+echo "[√] You can now run it by typing: $TOOL_NAME"
