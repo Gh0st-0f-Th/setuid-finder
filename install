@@ -1,4 +1,7 @@
 #!/bin/bash
+# install
+# Author: Gh0st-0f-Th
+# License: MIT
 
 TOOL_NAME="setuid-finder.sh"
 INSTALL_NAME="setuid-finder"

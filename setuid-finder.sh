@@ -1,4 +1,7 @@
 #!/bin/bash
+# setuid-finder
+# Author: Gh0st-0f-Th
+# License: MIT
 echo
 echo "-----------------------------------------"
 echo '[*] Searching setuid vulnerable files...|'
