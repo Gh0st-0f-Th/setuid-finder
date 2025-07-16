@@ -1,27 +1,38 @@
-# 🔍 setuid-finder
+# setuid-finder
 
-A lightweight Bash tool to search for potential **SUID privilege escalation vectors** in Linux and Termux environments.
+setuid-finder is a lightweight Bash script that scans for files with setuid-style permissions (4XXX) to help identify potential privilege escalation vectors. Designed to work in both Termux and standard Linux environments.
 
-> No Python. No dependencies. Just pure Bash & raw enumeration.
+## Features
 
----
+- Scans for files with setuid bit (e.g., 4755, 4777, etc.)
+- Groups and displays results by exact permission mode
+- Compatible with both Termux (Android) and Linux distributions
+- Zero dependencies, pure Bash implementation
+- Includes an installer script to deploy the tool system-wide
 
-## ⚔️ Features
+## Installation
 
-- 🔎 Scans for files with suspicious SUID-style permissions (`4XXX`)
-- 📁 Outputs results grouped by exact permission value (e.g., `4755`, `4777`, etc.)
-- 🧪 Works in both **Termux** (Android) and **standard Linux** distros
-- 📜 Clean CLI output with minimal fluff
-- 🛠️ Includes an installer for automatic setup
+Clone the repository:
 
----
+    git clone https://github.com/Gh0st-0f-Th/setuid-finder.git
+    cd setuid-finder
+    chmod +x install setuid-finder.sh
+    bash install
 
-## 💾 Installation
+The installer will detect your environment and place the script in the appropriate binary directory. If it's not in your PATH, the script will suggest adding it to your shell configuration.
 
-### 🧠 Step 1: Clone This Repo
+## Usage
 
-```bash
-git clone https://github.com/Gh0st-0f-Th/setuid-finder.git
-cd setuid-finder
-chmod +x install setuid-finder
-bash install
+Navigate to the directory you want to scan, then run:
+
+    setuid-finder
+
+Or run it from anywhere to scan your current directory tree.
+
+## License
+
+MIT License. See LICENSE file for more information.
+
+## Disclaimer
+
+Use this tool only on systems you own or have explicit permission to test. Unauthorized use is prohibited and may be illegal.
