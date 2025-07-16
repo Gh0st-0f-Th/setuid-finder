@@ -15,14 +15,12 @@ for starter in {1..27}; do
 done
 echo "  |"
 echo "[•] Total scanned:           |"
-
 results=""
-
 for i in {5..7}; do
     for j in {5..7}; do
         for k in {5..7}; do
             perms="4$i$j$k"
-            found=$(find . -type f -perm "$perms" 2>/dev/null)
+            found=$(find . -type f -perm "$perms" 2> /dev/null)
             if [ -n "$found" ]; then
                 results+="\n[+] Found with permission $perms:\n$found\n"
             fi
@@ -33,5 +31,3 @@ done
 echo "  |"
 echo '------------------------------\'
 echo -e "$results"
-
-rm -f err.log
