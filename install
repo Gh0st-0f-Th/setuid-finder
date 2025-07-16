@@ -1,8 +1,9 @@
 #!/bin/bash
 
-TOOL_NAME="setuid-finder"
+TOOL_NAME="setuid-finder.sh"
+INSTALL_NAME="setuid-finder"
 
-echo "[*] Installing $TOOL_NAME..."
+echo "[*] Installing $INSTALL_NAME..."
 
 # Detect environment
 if [ "$PREFIX" == "/data/data/com.termux/files/usr" ]; then
@@ -12,18 +13,21 @@ else
     echo "[√] Detected standard Linux"
 
     if [ "$EUID" -eq 0 ]; then
-        # If running as root
         TARGET_DIR="/usr/local/bin"
     else
-        # If normal user
         TARGET_DIR="$HOME/.local/bin"
         mkdir -p "$TARGET_DIR"
     fi
 fi
 
-# Copy tool
+# Check existence and make executable
+if [ ! -f "$TOOL_NAME" ]; then
+    echo "[!] Error: $TOOL_NAME not found!"
+    exit 1
+fi
+
 chmod +x "$TOOL_NAME"
-cp "$TOOL_NAME" "$TARGET_DIR/"
+cp "$TOOL_NAME" "$TARGET_DIR/$INSTALL_NAME"
 
 # Check if target dir is in PATH
 if ! echo "$PATH" | grep -q "$TARGET_DIR"; then
@@ -32,5 +36,5 @@ if ! echo "$PATH" | grep -q "$TARGET_DIR"; then
     echo "[!] Reload your shell or run: source ~/.bashrc"
 fi
 
-echo "[+] $TOOL_NAME installed to $TARGET_DIR/"
-echo "[√] You can now run it by typing: $TOOL_NAME"
+echo "[+] $INSTALL_NAME installed to $TARGET_DIR/"
+echo "[√] You can now run it by typing: $INSTALL_NAME"
